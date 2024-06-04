@@ -1,17 +1,66 @@
-<body>
-  <a href="/">Home</a>
-  <a href="/about">About</a>
-  <a href="/blog">Blog</a>
+---
+import "../styles/global.css"
+const pageTitle = "About Me";
 
-  <h1>About me</h1>
-  <h2>... and my Astro site</h2>
-  <p>
-    I am working through Astro's introductory tutorial. This is the second page
-    on my website, and it's the first one I built myself!
-  </p>
+const identity = {
+  firstName: "Joel",
+  country: "Canada",
+  occupation: "Developer",
+  hobbies: ["programing", "playing guitar", "fooball"],
+};
 
-  <p>
-    This site will update as I complete more of the tutorial, so keep checking
-    back and see how my journey is going!
-  </p>
-</body>
+const skills = ["HTML", "CSS", "JavaScript", "React", "Astro", "Writing Docs"];
+
+const skillColor = "navy";
+const fontWeight = "bold";
+const textCase = "capitalize";
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{pageTitle}</title>
+    <style define:vars={{ skillColor, fontWeight, textCase }}>
+      h1 {
+        color: purple;
+        font-size: 4rem;
+      }
+
+      .skill {
+        color: var(--skillColor);
+        font-weight: var(--fontWeight);
+        text-transform: var(--textCase);
+      }
+    </style>
+  </head>
+
+  <body>
+    <a href="/">Home</a>
+    <a href="/about">About</a>
+    <a href="/blog">Blog</a>
+
+    <h1>{pageTitle}</h1>
+    <p>Here are a few facts about me:</p>
+
+    <ul>
+      <li>My name is {identity.firstName}</li>
+      <li>
+        I live in {identity.country} and I work as a {identity.occupation}.
+      </li>
+      {
+        identity.hobbies.length >= 2 && (
+          <li>
+            Two of my hobbies are: {identity.hobbies[0]} and{" "}
+            {identity.hobbies[1]}
+          </li>
+        )
+      }
+    </ul>
+
+    <p>My skills are:</p>
+
+    <ul>{skills.map((skill) => <li class="skill">{skill}</li>)}</ul>
+  </body>
+</html>
