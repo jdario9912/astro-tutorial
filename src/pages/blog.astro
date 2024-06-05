@@ -1,10 +1,12 @@
 ---
+import Footer from "../components/footer.astro";
+import Navigation from "../components/navigation.astro";
 import "../styles/global.css"
 const pageTitle = "My Astro Learning Blog";
 ---
 
 <!doctype html>
-<html lang="en">
+<html lang="es">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -12,9 +14,7 @@ const pageTitle = "My Astro Learning Blog";
   </head>
 
   <body>
-    <a href="/">Home</a>
-    <a href="/about">About</a>
-    <a href="/blog">Blog</a>
+    <Navigation />
 
     <h1>{pageTitle}</h1>
 
@@ -25,5 +25,7 @@ const pageTitle = "My Astro Learning Blog";
       <li><a href="/posts/post-2">Post 2</a></li>
       <li><a href="/posts/post-3">Post 3</a></li>
     </ul>
+
+    <Footer />
   </body>
 </html>

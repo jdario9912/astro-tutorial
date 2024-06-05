@@ -1,4 +1,6 @@
 ---
+import Footer from "../components/footer.astro";
+import Navigation from "../components/navigation.astro";
 import "../styles/global.css"
 const pageTitle = "About Me";
 
@@ -17,7 +19,7 @@ const textCase = "capitalize";
 ---
 
 <!doctype html>
-<html lang="en">
+<html lang="es">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -37,9 +39,7 @@ const textCase = "capitalize";
   </head>
 
   <body>
-    <a href="/">Home</a>
-    <a href="/about">About</a>
-    <a href="/blog">Blog</a>
+    <Navigation />
 
     <h1>{pageTitle}</h1>
     <p>Here are a few facts about me:</p>
@@ -62,5 +62,7 @@ const textCase = "capitalize";
     <p>My skills are:</p>
 
     <ul>{skills.map((skill) => <li class="skill">{skill}</li>)}</ul>
+
+    <Footer />
   </body>
 </html>

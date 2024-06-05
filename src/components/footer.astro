@@ -1,0 +1,32 @@
+---
+type Social = {
+  platform: string;
+  user: string;
+};
+const socials: Social[] = [
+  {
+    platform: "github",
+    user: "jdario9912",
+  },
+  { platform: "linkedin", user: "in/joel-develop" },
+];
+const platform = "github";
+const username = "jdario9912";
+---
+
+<footer>
+  <p>
+    Learn more about me and my projects on
+    <ul>
+      {
+        socials.map((social) => (
+          <li>
+            <a href={`https://www.${social.platform}.com/${social.user}`}>
+              {social.platform}
+            </a>
+          </li>
+        ))
+      }
+    </ul>
+  </p>
+</footer>
