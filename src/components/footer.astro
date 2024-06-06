@@ -1,8 +1,11 @@
 ---
-type Social = {
-  platform: string;
-  user: string;
-};
+import Social from "./social.astro";
+
+// type Social = {
+//   platform: string;
+//   user: string;
+// };
+
 const socials: Social[] = [
   {
     platform: "github",
@@ -10,8 +13,6 @@ const socials: Social[] = [
   },
   { platform: "linkedin", user: "in/joel-develop" },
 ];
-const platform = "github";
-const username = "jdario9912";
 ---
 
 <footer>
@@ -21,12 +22,18 @@ const username = "jdario9912";
       {
         socials.map((social) => (
           <li>
-            <a href={`https://www.${social.platform}.com/${social.user}`}>
-              {social.platform}
-            </a>
+            <Social platform={social.platform}, user={social.user} />
           </li>
         ))
       }
     </ul>
   </p>
 </footer>
+
+<style>
+  footer {
+    display: flex;
+    gap: 1rem;
+    margin-top: 2rem;
+  }
+</style>
