@@ -1,20 +1,18 @@
 ---
-import type { MarkdownInstance } from "astro";
 import BaseLayout from "../../layouts/base-layout.astro";
 import BlogPost from "../../components/blog-post.astro";
-
-type MarkdownList = MarkdownInstance<Record<string, any>>[];
+import { getCollection } from "astro:content";
 
 type Paths = {
   params: { tag: string };
-  props: { posts: MarkdownList };
+  props: { posts: BlogCollection[] };
 };
 
 export async function getStaticPaths(): Promise<Paths[]> {
-  const allPosts = await Astro.glob("../posts/*.md");
+  const allPosts = await getCollection("posts");
 
   const uniqueTags = [
-    ...new Set(allPosts.map((post) => post.frontmatter.tags).flat()),
+    ...new Set(allPosts.map((post) => post.data.tags).flat()),
   ].reduce(
     (acum: string[], curr: string) =>
       acum.includes(curr) ? acum : [...acum, curr],
@@ -23,7 +21,7 @@ export async function getStaticPaths(): Promise<Paths[]> {
 
   return uniqueTags.map((tag: string) => {
     const filteredPost = allPosts.filter((post) =>
-      post.frontmatter.tags.includes(tag)
+      post.data.tags.includes(tag)
     );
 
     return {
@@ -35,9 +33,6 @@ export async function getStaticPaths(): Promise<Paths[]> {
 
 const { tag } = Astro.params;
 const { posts } = Astro.props;
-const filteredPost = posts.filter((post) =>
-  post.frontmatter.tags.includes(tag)
-);
 ---
 
 <BaseLayout pageTitle={tag}>
@@ -45,8 +40,8 @@ const filteredPost = posts.filter((post) =>
 
   <ul>
     {
-      filteredPost.map((post) => (
-        <BlogPost url={post.url} title={post.frontmatter.title} />
+      posts.map((post) => (
+        <BlogPost url={`/posts/${post.slug}`} title={post.data.title} />
       ))
     }
   </ul>

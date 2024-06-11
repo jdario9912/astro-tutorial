@@ -1,6 +1,12 @@
 ---
+import { getCollection } from "astro:content";
 import BaseLayout from "./base-layout.astro";
-const { frontmatter } = Astro.props;
+
+const url = Astro.url;
+
+const allPost = await getCollection("posts");
+
+const post = allPost.filter((post) => url.pathname.includes(post.slug))[0];
 ---
 
 <style>
@@ -23,18 +29,17 @@ const { frontmatter } = Astro.props;
   }
 </style>
 
-<BaseLayout>
-  <h1>{frontmatter.title}</h1>
-  <p>Published on: {frontmatter.pubDate.toString().slice(0, 10)}</p>
-  <p><em>{frontmatter.description}</em></p>
-  <p>Written by {frontmatter.author}</p>
-  <img src={frontmatter.image.url} alt={frontmatter.image.alt} />
+<BaseLayout pageTitle={post.data.title}>
+  <p>Published on: {post.data.pubDate.toString().slice(0, 10)}</p>
+  <p><em>{post.body}</em></p>
+  <p>Written by {post.data.author}</p>
+  <img src={post.data.image.url} alt={post.data.image.alt} />
 
   <slot />
 
   <div class="tags">
     {
-      frontmatter.tags.map((tag: string) => (
+      post.data.tags.map((tag: string) => (
         <p class="tag">
           <a href={`/tags/${tag}`}>{tag}</a>
         </p>

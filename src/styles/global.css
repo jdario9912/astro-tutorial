@@ -8,6 +8,10 @@ html.dark {
   color: #fff;
 }
 
+img {
+  max-width: 100%;
+}
+
 .dark .nav-links a {
   color: #fff;
 }
